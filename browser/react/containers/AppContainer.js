@@ -26,9 +26,15 @@ export default class AppContainer extends Component {
   }
 
   componentDidMount () {
+    // console.log(this.state);
     axios.get('/api/albums/')
       .then(res => res.data)
       .then(album => this.onLoad(convertAlbums(album)));
+
+    // axios.get('/api/albums/3')
+    //   .then(res => res.data)
+    //   .then(album => this.onLoad(convertAlbum(album)));
+
 
     AUDIO.addEventListener('ended', () =>
       this.next());
@@ -109,15 +115,15 @@ export default class AppContainer extends Component {
           <Sidebar deselectAlbum={this.deselectAlbum} />
         </div>
         <div className="col-xs-10">
-        { 
+        {
           this.props.children ? (React.cloneElement(this.props.children, {
-          
+
             album: this.state.selectedAlbum,
             currentSong: this.state.currentSong,
             isPlaying: this.state.isPlaying,
             toggleOne: this.toggleOne,
-          
-         
+
+
             albums: this.state.albums,
             selectAlbum: this.selectAlbum
           })) : null
